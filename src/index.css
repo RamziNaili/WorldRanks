@@ -1,0 +1,14 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@import url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@500;600;700&display=swap');
+
+@layer base {
+  :root {
+    --color-primary: #1b1d1f;
+    --color-secondary: #282b30;
+    --color-blue: #4e80ee;
+    --color-gray: #6c727f;
+    --color-light: #d2d5da;
+  }
+}
