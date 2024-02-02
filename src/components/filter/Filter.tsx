@@ -4,8 +4,8 @@ export const Filter: FC = () => {
   return (
     <div className="w-[400px p-5">
       <div>
-        <p className="text-sm text-light font-beViet">Sort by</p>
-        <select className="w-full border border-neutral-700 outline-none rounded-lg p-2 mt-3">
+        <p className="text-sm text-light font-beViet mb-3">Sort by</p>
+        <select className="w-full border border-neutral-500 outline-none rounded-lg px-4 py-3">
           <option value="population">Population</option>
           <option value="Flag">Flag</option>
           <option value="Name">Name</option>
