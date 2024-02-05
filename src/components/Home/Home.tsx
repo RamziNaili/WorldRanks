@@ -12,15 +12,15 @@ export const Home: FC = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await axios.get('https://restcountries.com/v3.1/all');
+        const res = await axios.get(
+          'https://restcountries.com/v3.1/all?fields=name,flags,population,area'
+        );
         setData(res.data);
-        console.log('Data from API', data);
       } catch (error) {
         console.log('Error in Home component', error);
       }
     };
     fetchData();
-    console.log('Home component mounted');
   }, []);
 
   return (

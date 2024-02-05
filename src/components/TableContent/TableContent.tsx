@@ -1,4 +1,5 @@
-import { FC } from 'react';
+import { FC, useEffect, useState } from 'react';
+import { useFilterStore } from '../../core/store/UseFilterStore';
 
 type Props = {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -6,6 +7,21 @@ type Props = {
 };
 
 export const TableContent: FC<Props> = ({ data }) => {
+  const [countries, setCountries] = useState(data);
+  const sortBy = useFilterStore((state) => state.sortBy);
+
+  useEffect(() => {
+    if (sortBy === 'name') {
+      setCountries(data.sort((a, b) => a.name.common > b.name.common));
+    }
+    if (sortBy === 'population') {
+      setCountries(data.sort((a, b) => a.population - b.population));
+    }
+    if (sortBy === 'area') {
+      setCountries(data.sort((a, b) => a.area - b.area));
+    }
+  }, [data, sortBy]);
+
   return (
     <div>
       <div className="grid grid-cols-[10%_35%_25%_15%_15%] text-text p-5">
@@ -18,7 +34,7 @@ export const TableContent: FC<Props> = ({ data }) => {
       <span className="h-[1px] block bg-text w-full" />
       <div className="bg-gray-50 max-h-[450px] overflow-y-scroll scrollbar-hide">
         <div>
-          {data.map((country) => (
+          {countries.map((country) => (
             <div
               key={`country-` + country.name.common}
               className="grid grid-cols-[10%_35%_25%_15%_15%] grid-rows text-light py-5 px-3"
