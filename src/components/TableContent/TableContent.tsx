@@ -21,9 +21,13 @@ export const TableContent: FC<Props> = ({ data }) => {
           {data.map((country) => (
             <div
               key={`country-` + country.name.common}
-              className="grid grid-cols-[10%_35%_25%_15%_15%] grid-rows text-light p-5"
+              className="grid grid-cols-[10%_35%_25%_15%_15%] grid-rows text-light py-5 px-3"
             >
-              <p>a</p>
+              <img
+                src={country.flags.png}
+                alt="flag"
+                className="w-12 rounded"
+              />
               <p>{country.name.common}</p>
               <p>{country.population}</p>
               <p>{country.area}</p>
