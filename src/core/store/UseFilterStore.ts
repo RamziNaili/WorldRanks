@@ -9,8 +9,14 @@ export enum RegionsName {
   Oceania = 'Oceania',
 }
 
+export enum SortType {
+  name = 'name',
+  population = 'population',
+  area = 'area',
+}
+
 type Filter = {
-  sortBy: 'name' | 'population' | 'area';
+  sortBy: SortType;
   regions: RegionsName[];
   UnitedStates: boolean;
   Independed: boolean;
@@ -23,10 +29,11 @@ type Actions = {
   setRegions: (region: RegionsName) => void;
   setUnitedStates: () => void;
   setIndepended: () => void;
+  setSortBy: (sortBy: SortType) => void;
 };
 
 const initialState: InitialState = {
-  sortBy: 'name',
+  sortBy: SortType.name,
   regions: [],
   UnitedStates: false,
   Independed: false,
@@ -54,5 +61,6 @@ export const useFilterStore = create<InitialState & Actions>((set) => ({
     set((state) => ({ ...state, UnitedStates: !state.UnitedStates })),
   setIndepended: () =>
     set((state) => ({ ...state, Independed: !state.Independed })),
+  setSortBy: (sortBy: SortType) => set((state) => ({ ...state, sortBy })),
   reset: () => set({ ...initialState }),
 }));
