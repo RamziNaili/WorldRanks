@@ -58,14 +58,14 @@ export const TableContent: FC<Props> = ({ data }) => {
   });
 
   return (
-    <div className="h-[450px] overflow-y-auto ">
-      <table>
-        <thead className="sticky top-0">
+    <div className="h-[70vh] overflow-y-auto w-full">
+      <table className="w-full">
+        <thead className="sticky top-0 w-full">
           {table.getHeaderGroups().map((headerGroup) => (
             <tr key={headerGroup.id}>
               {headerGroup.headers.map((header) => (
                 <th key={header.id}>
-                  <div>
+                  <div className="text-text text-start py-5 px-2 border-b">
                     {flexRender(
                       header.column.columnDef.header,
                       header.getContext()
@@ -76,7 +76,7 @@ export const TableContent: FC<Props> = ({ data }) => {
             </tr>
           ))}
         </thead>
-        <tbody>
+        <tbody className="w-full">
           {table.getRowModel().rows.map((row) => (
             <tr key={row.id}>
               {row.getVisibleCells().map((cell) => (
