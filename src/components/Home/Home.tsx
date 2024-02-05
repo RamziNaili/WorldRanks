@@ -6,6 +6,8 @@ import { TableContent } from '../TableContent/TableContent';
 import { SearchBar } from '../filter/SearchBar';
 import axios from 'axios';
 
+// export type
+
 export const Home: FC = () => {
   const [data, setData] = useState([]);
 
@@ -13,7 +15,7 @@ export const Home: FC = () => {
     const fetchData = async () => {
       try {
         const res = await axios.get(
-          'https://restcountries.com/v3.1/all?fields=name,flags,population,area'
+          'https://restcountries.com/v3.1/all?fields=name,flags,population,area,region'
         );
         setData(res.data);
       } catch (error) {

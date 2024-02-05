@@ -1,57 +1,93 @@
-import { FC, useEffect, useState } from 'react';
-import { useFilterStore } from '../../core/store/UseFilterStore';
+import { FC } from 'react';
+import {
+  createColumnHelper,
+  useReactTable,
+  getCoreRowModel,
+  flexRender,
+} from '@tanstack/react-table';
 
 type Props = {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   data: any;
 };
 
-export const TableContent: FC<Props> = ({ data }) => {
-  const [countries, setCountries] = useState(data);
-  const sortBy = useFilterStore((state) => state.sortBy);
+type Column = {
+  flags: {
+    png: string;
+  };
+  name: {
+    common: string;
+  };
+  population: number;
+  area: number;
+  region: string;
+};
 
-  useEffect(() => {
-    if (sortBy === 'name') {
-      setCountries(data.sort((a, b) => a.name.common > b.name.common));
-    }
-    if (sortBy === 'population') {
-      setCountries(data.sort((a, b) => a.population - b.population));
-    }
-    if (sortBy === 'area') {
-      setCountries(data.sort((a, b) => a.area - b.area));
-    }
-  }, [data, sortBy]);
+export const TableContent: FC<Props> = ({ data }) => {
+  const columnHelper = createColumnHelper<Column>();
+  const columns = [
+    columnHelper.accessor((row) => row.flags.png, {
+      id: 'flag',
+      header: () => 'Flag',
+      cell: (info) => <img src={info.getValue()} className="w-12 rounded" />,
+    }),
+    columnHelper.accessor((row) => row.name.common, {
+      id: 'name',
+      header: () => 'Name',
+      cell: (info) => info.getValue(),
+    }),
+    columnHelper.accessor('population', {
+      header: () => 'Population',
+      cell: (info) => info.getValue().toLocaleString('en-US'),
+    }),
+    columnHelper.accessor('area', {
+      header: () => 'Area',
+      cell: (info) => info.getValue().toLocaleString('en-US'),
+    }),
+    columnHelper.accessor('region', {
+      header: () => 'Region',
+      cell: (info) => info.getValue(),
+    }),
+  ];
+
+  const table = useReactTable({
+    data,
+    columns,
+    debugTable: true,
+    getCoreRowModel: getCoreRowModel(),
+  });
 
   return (
-    <div>
-      <div className="grid grid-cols-[10%_35%_25%_15%_15%] text-text p-5">
-        <p>Flag</p>
-        <p>Name</p>
-        <p>Population</p>
-        <p>Area (km²)</p>
-        <p>Region</p>
-      </div>
-      <span className="h-[1px] block bg-text w-full" />
-      <div className="bg-gray-50 max-h-[450px] overflow-y-scroll scrollbar-hide">
-        <div>
-          {countries.map((country) => (
-            <div
-              key={`country-` + country.name.common}
-              className="grid grid-cols-[10%_35%_25%_15%_15%] grid-rows text-light py-5 px-3"
-            >
-              <img
-                src={country.flags.png}
-                alt="flag"
-                className="w-12 rounded"
-              />
-              <p>{country.name.common}</p>
-              <p>{country.population.toLocaleString('en-US')}</p>
-              <p>{country.area.toLocaleString('en-US')}</p>
-              <p>{country.region}</p>
-            </div>
+    <div className="h-[450px] overflow-y-auto ">
+      <table>
+        <thead className="sticky top-0">
+          {table.getHeaderGroups().map((headerGroup) => (
+            <tr key={headerGroup.id}>
+              {headerGroup.headers.map((header) => (
+                <th key={header.id}>
+                  <div>
+                    {flexRender(
+                      header.column.columnDef.header,
+                      header.getContext()
+                    )}
+                  </div>
+                </th>
+              ))}
+            </tr>
           ))}
-        </div>
-      </div>
+        </thead>
+        <tbody>
+          {table.getRowModel().rows.map((row) => (
+            <tr key={row.id}>
+              {row.getVisibleCells().map((cell) => (
+                <td key={cell.id} className=" text-light py-5 px-3">
+                  {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                </td>
+              ))}
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 };
