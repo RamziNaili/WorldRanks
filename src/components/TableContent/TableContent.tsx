@@ -29,8 +29,8 @@ export const TableContent: FC<Props> = ({ data }) => {
                 className="w-12 rounded"
               />
               <p>{country.name.common}</p>
-              <p>{country.population}</p>
-              <p>{country.area}</p>
+              <p>{country.population.toLocaleString('en-US')}</p>
+              <p>{country.area.toLocaleString('en-US')}</p>
               <p>{country.region}</p>
             </div>
           ))}
