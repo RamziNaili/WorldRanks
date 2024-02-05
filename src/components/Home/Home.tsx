@@ -13,7 +13,7 @@ export const Home: FC = () => {
         src="src/assets/hero-image.jpg"
         alt="hero"
       />
-      <div className="absolute top-[29rem] left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-gray-200 p-4 border border-neutral-700 rounded-lg w-[90vw] ">
+      <div className="absolute left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-gray-200 p-4 border border-neutral-700 rounded-lg w-[90vw] ">
         <div className="flex justify-between p-5">
           <p className="font-beViet font-semibold text-text ">
             Found 234 counties

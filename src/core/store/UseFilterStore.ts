@@ -21,6 +21,8 @@ type InitialState = Filter;
 type Actions = {
   setFilter: (filter: InitialState) => void;
   setRegions: (region: RegionsName) => void;
+  setUnitedStates: () => void;
+  setIndepended: () => void;
 };
 
 const initialState: InitialState = {
@@ -48,5 +50,9 @@ export const useFilterStore = create<InitialState & Actions>((set) => ({
       };
     });
   },
+  setUnitedStates: () =>
+    set((state) => ({ ...state, UnitedStates: !state.UnitedStates })),
+  setIndepended: () =>
+    set((state) => ({ ...state, Independed: !state.Independed })),
   reset: () => set({ ...initialState }),
 }));
