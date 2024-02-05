@@ -12,6 +12,8 @@ export default {
         blue: '#4e80ee',
         gray: '#6c727f',
         light: '#d2d5da',
+        text: '#6C7280',
+        textLight: '#D1D4D9',
       },
     },
   },
