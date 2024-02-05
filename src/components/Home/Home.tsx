@@ -3,16 +3,17 @@ import { Filter } from '../filter/Filter';
 import { TableContent } from '../TableContent/TableContent';
 import { SearchBar } from '../filter/SearchBar';
 import axios from 'axios';
+import { Country } from '../../types/Countries';
 
 // export type
 
 export const Home: FC = () => {
-  const [data, setData] = useState([]);
+  const [data, setData] = useState<Country[]>([]);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await axios.get(
+        const res = await axios.get<Country[]>(
           'https://restcountries.com/v3.1/all?fields=name,flags,population,area,region'
         );
         setData(res.data);

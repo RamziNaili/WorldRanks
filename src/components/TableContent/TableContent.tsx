@@ -1,57 +1,37 @@
-import { FC } from 'react';
+import { FC, useEffect, useState } from 'react';
 import {
-  createColumnHelper,
   useReactTable,
   getCoreRowModel,
   flexRender,
 } from '@tanstack/react-table';
+import { columns } from './table';
+import { useFilterStore } from '../../core/store/UseFilterStore';
+import { Country } from '../../types/Countries';
 
 type Props = {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  data: any;
-};
-
-type Column = {
-  flags: {
-    png: string;
-  };
-  name: {
-    common: string;
-  };
-  population: number;
-  area: number;
-  region: string;
+  data: Country[];
 };
 
 export const TableContent: FC<Props> = ({ data }) => {
-  const columnHelper = createColumnHelper<Column>();
-  const columns = [
-    columnHelper.accessor((row) => row.flags.png, {
-      id: 'flag',
-      header: () => 'Flag',
-      cell: (info) => <img src={info.getValue()} className="w-12 rounded" />,
-    }),
-    columnHelper.accessor((row) => row.name.common, {
-      id: 'name',
-      header: () => 'Name',
-      cell: (info) => info.getValue(),
-    }),
-    columnHelper.accessor('population', {
-      header: () => 'Population',
-      cell: (info) => info.getValue().toLocaleString('en-US'),
-    }),
-    columnHelper.accessor('area', {
-      header: () => 'Area',
-      cell: (info) => info.getValue().toLocaleString('en-US'),
-    }),
-    columnHelper.accessor('region', {
-      header: () => 'Region',
-      cell: (info) => info.getValue(),
-    }),
-  ];
+  const [countries, setCountries] = useState(data);
+  const sortBy = useFilterStore((state) => state.sortBy);
+
+  useEffect(() => {
+    if (sortBy === 'name') {
+      setCountries(
+        data.sort((a, b) => a.name.common.localeCompare(b.name.common))
+      );
+    }
+    if (sortBy === 'population') {
+      setCountries(data.sort((a, b) => a.population - b.population));
+    }
+    if (sortBy === 'area') {
+      setCountries(data.sort((a, b) => a.area - b.area));
+    }
+  }, [data, sortBy]);
 
   const table = useReactTable({
-    data,
+    data: countries,
     columns,
     debugTable: true,
     getCoreRowModel: getCoreRowModel(),
