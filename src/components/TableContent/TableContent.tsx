@@ -20,7 +20,7 @@ export const TableContent: FC = () => {
   return (
     <div className="h-full max-md:h-[350px] overflow-auto w-full">
       <table className="w-full max-xl:w-[700px]">
-        <thead className="sticky top-0 w-full">
+        <thead className="sticky top-[-1px] w-full">
           {table.getHeaderGroups().map((headerGroup) => (
             <tr key={headerGroup.id}>
               {headerGroup.headers.map((header) => (
