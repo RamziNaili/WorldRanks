@@ -1,39 +1,24 @@
-import { FC, useEffect, useState } from 'react';
+import { FC } from 'react';
 import {
   useReactTable,
   getCoreRowModel,
   flexRender,
 } from '@tanstack/react-table';
 import { columns } from './table';
-import { useFilterStore } from '../../core/store/UseFilterStore';
 import { Country } from '../../types/Countries';
+import { useData } from '../../core/hooks/useData';
 
 type Props = {
   data: Country[];
 };
 
-export const TableContent: FC<Props> = ({ data }) => {
-  const [countries, setCountries] = useState(data);
-  const sortBy = useFilterStore((state) => state.sortBy);
-
-  useEffect(() => {
-    if (sortBy === 'name') {
-      setCountries(
-        data.sort((a, b) => a.name.common.localeCompare(b.name.common))
-      );
-    }
-    if (sortBy === 'population') {
-      setCountries(data.sort((a, b) => a.population - b.population));
-    }
-    if (sortBy === 'area') {
-      setCountries(data.sort((a, b) => a.area - b.area));
-    }
-  }, [data, sortBy]);
+export const TableContent: FC<Props> = () => {
+  const { data } = useData();
 
   const table = useReactTable({
-    data: countries,
+    data,
     columns,
-    debugTable: true,
+    debugTable: false,
     getCoreRowModel: getCoreRowModel(),
   });
 

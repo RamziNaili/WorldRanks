@@ -61,6 +61,8 @@ export const useFilterStore = create<InitialState & Actions>((set) => ({
     set((state) => ({ ...state, UnitedStates: !state.UnitedStates })),
   setIndepended: () =>
     set((state) => ({ ...state, Independed: !state.Independed })),
-  setSortBy: (sortBy: SortType) => set((state) => ({ ...state, sortBy })),
+  setSortBy: (sortBy: SortType) => {
+    set((state) => ({ ...state, sortBy }));
+  },
   reset: () => set({ ...initialState }),
 }));

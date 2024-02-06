@@ -3,17 +3,14 @@ import { Filter } from '../filter/Filter';
 import { TableContent } from '../TableContent/TableContent';
 import { SearchBar } from '../filter/SearchBar';
 import axios from 'axios';
-import { Country } from '../../types/Countries';
-
-// export type
 
 export const Home: FC = () => {
-  const [data, setData] = useState<Country[]>([]);
+  const [data, setData] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await axios.get<Country[]>(
+        const res = await axios.get(
           'https://restcountries.com/v3.1/all?fields=name,flags,population,area,region'
         );
         setData(res.data);
@@ -34,7 +31,7 @@ export const Home: FC = () => {
       <div className="absolute shadow-xl top-[500px] left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-gray-200 p-4 border border-neutral-700 rounded-lg w-[90vw] ">
         <div className="flex justify-between p-5">
           <p className="font-beViet font-semibold text-text ">
-            Found 234 counties
+            {`Found ${data.length} counties`}
           </p>
           <SearchBar />
         </div>
