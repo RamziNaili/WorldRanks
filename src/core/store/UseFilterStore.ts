@@ -5,7 +5,7 @@ export enum RegionsName {
   Americas = 'Americas',
   Asia = 'Asia',
   Europe = 'Europe',
-  Antarctica = 'Antarctica',
+  Antarctic = 'Antarctic',
   Oceania = 'Oceania',
 }
 

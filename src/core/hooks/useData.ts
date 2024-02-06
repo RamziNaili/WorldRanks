@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react';
-import { useFilterStore } from '../store/UseFilterStore';
+import { RegionsName, useFilterStore } from '../store/UseFilterStore';
 import axios from 'axios';
 import { Country } from '../../types/Countries';
 
 export const useData = () => {
   const sortBy = useFilterStore((state) => state.sortBy);
+  const regions = useFilterStore((state) => state.regions);
   const [data, setData] = useState<Country[]>([]);
 
   useEffect(() => {
@@ -38,12 +39,19 @@ export const useData = () => {
         if (sortBy === 'area') {
           setData(res.data.sort((a, b) => a.area - b.area));
         }
+        if (regions.length > 0) {
+          setData((prev) =>
+            prev.filter((country) =>
+              regions.includes(country.region as RegionsName)
+            )
+          );
+        }
       } catch (error) {
         console.log('Error in Home component', error);
       }
     };
     sortData();
-  }, [sortBy, setData]);
+  }, [sortBy, setData, regions]);
 
   return { data };
 };

@@ -15,7 +15,7 @@ export const Regions: FC = () => {
     RegionsName.Europe,
     RegionsName.Africa,
     RegionsName.Oceania,
-    RegionsName.Antarctica,
+    RegionsName.Antarctic,
   ];
 
   return (
