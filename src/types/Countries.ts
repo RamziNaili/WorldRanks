@@ -10,4 +10,6 @@ export type Country = {
   region: string;
   area: number;
   population: number;
+  independent: boolean;
+  unMember: boolean;
 };

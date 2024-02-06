@@ -11,7 +11,7 @@ export const Home: FC = () => {
     const fetchData = async () => {
       try {
         const res = await axios.get(
-          'https://restcountries.com/v3.1/all?fields=name,flags,population,area,region'
+          'https://restcountries.com/v3.1/all?fields=name,flags,population,area,region,independent,unMember'
         );
         setData(res.data);
       } catch (error) {

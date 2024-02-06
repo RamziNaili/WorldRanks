@@ -6,6 +6,8 @@ import { Country } from '../../types/Countries';
 export const useData = () => {
   const sortBy = useFilterStore((state) => state.sortBy);
   const regions = useFilterStore((state) => state.regions);
+  const unitedStates = useFilterStore((state) => state.UnitedStates);
+  const independed = useFilterStore((state) => state.Independed);
   const [data, setData] = useState<Country[]>([]);
 
   useEffect(() => {
@@ -24,9 +26,10 @@ export const useData = () => {
 
   useEffect(() => {
     const sortData = async () => {
+      console.log('sortData');
       try {
         const res = await axios.get<Country[]>(
-          'https://restcountries.com/v3.1/all?fields=name,flags,population,area,region'
+          `https://restcountries.com/v3.1/independent?status=${independed}&fields=name,flags,population,area,region`
         );
         if (sortBy === 'name') {
           setData(
@@ -51,7 +54,13 @@ export const useData = () => {
       }
     };
     sortData();
-  }, [sortBy, setData, regions]);
+  }, [sortBy, setData, regions, independed, unitedStates]);
+
+  useEffect(() => {
+    setData((prev) =>
+      prev.filter((country) => country.unMember === unitedStates)
+    );
+  }, [unitedStates]);
 
   return { data };
 };
