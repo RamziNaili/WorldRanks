@@ -14,7 +14,7 @@ export const Home: FC = () => {
         src="src/assets/hero-image.jpg"
         alt="hero"
       />
-      <div className="absolute shadow-xl top-[500px] left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-gray-200 p-4 border border-neutral-700 rounded-lg w-[90vw] ">
+      <div className="absolute shadow-xl top-[530px] left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-gray-200 p-4 border border-neutral-700 rounded-lg w-[90vw] ">
         <div className="flex justify-between p-5">
           <p className="font-beViet font-semibold text-text ">
             {`Found ${data.length} counties`}

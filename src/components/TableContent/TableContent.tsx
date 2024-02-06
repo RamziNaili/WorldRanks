@@ -18,8 +18,8 @@ export const TableContent: FC = () => {
   });
 
   return (
-    <div className="h-[70vh] overflow-y-auto w-full">
-      <table className="w-full">
+    <div className="h-[70vh] overflow-auto w-full">
+      <table className="w-full max-xl:w-[700px]">
         <thead className="sticky top-0 w-full">
           {table.getHeaderGroups().map((headerGroup) => (
             <tr key={headerGroup.id}>
