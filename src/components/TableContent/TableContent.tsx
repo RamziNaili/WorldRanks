@@ -6,9 +6,11 @@ import {
 } from '@tanstack/react-table';
 import { columns } from './table';
 import { useData } from '../../core/hooks/useData';
+import { useNavigate } from 'react-router-dom';
 
 export const TableContent: FC = () => {
   const { data } = useData();
+  const navigate = useNavigate();
 
   const table = useReactTable({
     data,
@@ -16,6 +18,13 @@ export const TableContent: FC = () => {
     debugTable: false,
     getCoreRowModel: getCoreRowModel(),
   });
+
+  const handleClick = (
+    e: React.MouseEvent<HTMLTableCellElement, MouseEvent>
+  ) => {
+    const target = e.target as HTMLTableCellElement;
+    navigate(`/${target.textContent}`);
+  };
 
   return (
     <div className="h-full max-md:h-[350px] overflow-auto w-full">
@@ -40,7 +49,11 @@ export const TableContent: FC = () => {
           {table.getRowModel().rows.map((row) => (
             <tr key={row.id}>
               {row.getVisibleCells().map((cell) => (
-                <td key={cell.id} className=" text-light py-5 px-3">
+                <td
+                  key={cell.id}
+                  onClick={(e) => handleClick(e)}
+                  className="text-light py-5 px-3 cursor-pointer"
+                >
                   {flexRender(cell.column.columnDef.cell, cell.getContext())}
                 </td>
               ))}
