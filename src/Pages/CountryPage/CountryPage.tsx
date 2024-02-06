@@ -51,47 +51,59 @@ export const CountryPage = () => {
         src="src/assets/hero-image.jpg"
         alt="hero"
       />
-      <div className="absolute shadow-xl top-[530px] left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-gray-200 p-4 border border-neutral-700 rounded-lg w-[50vw]">
+      <div className="absolute shadow-xl top-[500px] left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-gray-200 border border-neutral-700 rounded-lg w-[50vw]">
         {data && (
-          <div className="p-5 h-[75vh] relative">
+          <div className="h-[70vh] relative rounded-lg">
             <img
               src={data.flags.png}
               alt="flag"
-              className="absolute left-1/2 transform -translate-x-1/2 -translate-y-1/2 top-0 w-48 rounded-lg"
+              className="absolute left-1/2 transform -translate-x-1/2 -translate-y-1/2 top-[-95px] h-36 rounded-lg"
             />
-            <div className="w-full flex items-center flex-col mt-16">
-              <p>{data.name.common}</p>
-              <p>{data.name.official}</p>
+            <div className="w-full flex items-center flex-col mt-20 mb-4">
+              <p className="text-3xl mb-3">{data.name.common}</p>
+              <p className="text-sm">{data.name.official}</p>
             </div>
-            <div className="flex">
-              <div className="flex">
-                <p>population</p>
-                <p>{data.population}</p>
+            <div className="flex justify-center gap-10">
+              <div className="flex items-center justify-center p-5 rounded-lg bg-secondary h-10 text-light w-64">
+                <p className="bg-secondary border-r border-slate-600 pr-4">
+                  population
+                </p>
+                <p className="bg-secondary pl-4">
+                  {data.population.toLocaleString('en-US')}
+                </p>
               </div>
-              <div className="flex">
-                <p>Area (km²)</p>
-                <p>{data.area}</p>
+              <div className="flex items-center justify-center p-5 rounded-lg bg-secondary h-10 text-light w-64">
+                <p className="bg-secondary border-r border-slate-600 pr-4">
+                  Area (km²)
+                </p>
+                <p className="bg-secondary pl-4">
+                  {data.area.toLocaleString('en-US')}
+                </p>
               </div>
             </div>
-            <div className="w-full flex justify-between">
+            <div className="w-full flex justify-between border-t border-slate-600 p-5 mt-10">
               <p>Capital</p>
-              <p>{data.capital}</p>
+              <p className="text-light">{data.capital}</p>
             </div>
-            <div className="w-full flex justify-between">
+            <div className="w-full flex justify-between border-y border-slate-600 p-5">
               <p>Subregion</p>
-              <p>{data.subregion}</p>
+              <p className="text-light">{data.subregion}</p>
             </div>
-            <div className="w-full flex justify-between">
+            <div className="w-full flex justify-between border-b border-slate-600 p-5">
               <p>Languages</p>
-              <p>{Object.values(data.languages).join(', ')}</p>
+              <p className="text-light">
+                {Object.values(data.languages).join(', ')}
+              </p>
             </div>
-            <div className="w-full flex justify-between">
+            <div className="w-full flex justify-between border-b border-slate-600 p-5">
               <p>Currencies</p>
-              <p>{Object.values(data.currencies).join(', ')}</p>
+              <p className="text-light">
+                {Object.values(data.currencies)[0].name}
+              </p>
             </div>
-            <div className="w-full flex justify-between">
+            <div className="w-full flex justify-between border-b border-slate-600 p-5">
               <p>Continents</p>
-              <p>{data.continents}</p>
+              <p className="text-light">{data.continents}</p>
             </div>
           </div>
         )}

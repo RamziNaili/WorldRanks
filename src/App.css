@@ -3,3 +3,10 @@
   padding: 0;
   background-color: #1b1d1f;
 }
+
+p {
+  font-family: 'Be Vietnam Pro';
+  font-size: medium;
+  font-weight: 500;
+  color: #6c727f;
+}
