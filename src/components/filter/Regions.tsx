@@ -21,7 +21,7 @@ export const Regions: FC = () => {
   return (
     <div className="mt-5 w-full">
       <p className="text-sm text-text font-beViet mb-3">Region</p>
-      <div className="flex gap-3 flex-wrap w-[300px]">
+      <div className="flex gap-3 flex-wrap md:w-[300px]">
         {regions.map((region) => {
           return (
             <p

@@ -18,7 +18,7 @@ export const TableContent: FC = () => {
   });
 
   return (
-    <div className="h-[70vh] overflow-auto w-full">
+    <div className="h-full max-md:h-[350px] overflow-auto w-full">
       <table className="w-full max-xl:w-[700px]">
         <thead className="sticky top-0 w-full">
           {table.getHeaderGroups().map((headerGroup) => (
