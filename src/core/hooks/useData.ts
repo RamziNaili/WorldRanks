@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { RegionsName, useFilterStore } from '../store/UseFilterStore';
 import axios from 'axios';
 import { Country } from '../../types/Countries';
+import { useSearchBarStore } from '../store/UseSearchBarStore';
 
 export const useData = () => {
   const sortBy = useFilterStore((state) => state.sortBy);
@@ -9,24 +10,10 @@ export const useData = () => {
   const unitedStates = useFilterStore((state) => state.UnitedStates);
   const independed = useFilterStore((state) => state.Independed);
   const [data, setData] = useState<Country[]>([]);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const res = await axios.get(
-          'https://restcountries.com/v3.1/all?fields=name,flags,population,area,region'
-        );
-        setData(res.data);
-      } catch (error) {
-        console.log('Error in Home component', error);
-      }
-    };
-    fetchData();
-  }, []);
+  const search = useSearchBarStore((state) => state.search);
 
   useEffect(() => {
     const sortData = async () => {
-      console.log('sortData');
       try {
         const res = await axios.get<Country[]>(
           `https://restcountries.com/v3.1/independent?status=${independed}&fields=name,flags,population,area,region`
@@ -49,12 +36,17 @@ export const useData = () => {
             )
           );
         }
+        if (search.length > 0) {
+          setData((prev) =>
+            prev.filter((country) => country.name.common.includes(search))
+          );
+        }
       } catch (error) {
         console.log('Error in Home component', error);
       }
     };
     sortData();
-  }, [sortBy, setData, regions, independed, unitedStates]);
+  }, [sortBy, setData, regions, independed, unitedStates, search]);
 
   useEffect(() => {
     setData((prev) =>
