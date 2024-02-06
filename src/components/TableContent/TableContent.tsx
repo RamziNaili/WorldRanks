@@ -5,14 +5,9 @@ import {
   flexRender,
 } from '@tanstack/react-table';
 import { columns } from './table';
-import { Country } from '../../types/Countries';
 import { useData } from '../../core/hooks/useData';
 
-type Props = {
-  data: Country[];
-};
-
-export const TableContent: FC<Props> = () => {
+export const TableContent: FC = () => {
   const { data } = useData();
 
   const table = useReactTable({
