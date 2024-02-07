@@ -1,12 +1,13 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { CountryInfo, CountryNeighbour } from './types/countryPage';
 
 export const CountryPage = () => {
   const params = useParams();
   const [data, setData] = useState<CountryInfo>();
   const [neighbours, setNeighbours] = useState<CountryNeighbour[]>();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -27,6 +28,10 @@ export const CountryPage = () => {
     };
     fetchData();
   }, [params.name]);
+
+  const handleClick = (name: string) => {
+    navigate(`/${name}`);
+  };
 
   return (
     <div className="w-screen relative text-white">
@@ -97,7 +102,8 @@ export const CountryPage = () => {
                 {neighbours?.map((neighbour) => (
                   <div
                     key={neighbour.name.common}
-                    className="flex flex-col items-center justify-center h-20 gap-2"
+                    onClick={() => handleClick(neighbour.name.common)}
+                    className="flex flex-col items-center justify-center h-20 gap-2 cursor-pointer"
                   >
                     <img
                       src={neighbour.flags.png}
