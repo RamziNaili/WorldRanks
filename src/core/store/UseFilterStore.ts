@@ -10,9 +10,9 @@ export enum RegionsName {
 }
 
 export enum SortType {
-  name = 'name',
   population = 'population',
   area = 'area',
+  name = 'name',
 }
 
 type Filter = {
@@ -33,7 +33,7 @@ type Actions = {
 };
 
 const initialState: InitialState = {
-  sortBy: SortType.name,
+  sortBy: SortType.population,
   regions: [],
   UnitedStates: false,
   Independed: false,
