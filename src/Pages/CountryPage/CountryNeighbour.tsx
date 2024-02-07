@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { CountryNeighbour } from './types/countryPage';
+import { CountryNeighbour } from '../../types/countryPage';
 
 type Props = {
   neighbours: CountryNeighbour[] | undefined;

@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { CountryInfo } from './types/countryPage';
+import { CountryInfo } from '../../types/countryPage';
 
 type Props = {
   data: CountryInfo;
