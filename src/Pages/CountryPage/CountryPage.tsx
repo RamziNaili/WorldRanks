@@ -5,11 +5,14 @@ import { CountryInfo, CountryNeighbour } from '../../types/Countries';
 import { CountryData } from './CountryData';
 import { CountrysNeighbour } from './CountryNeighbour';
 import { CountryDataHeader } from './CountryDataHeader';
+import { useDocumentTitle } from 'usehooks-ts';
 
 export const CountryPage = () => {
   const params = useParams();
   const [data, setData] = useState<CountryInfo>();
   const [neighbours, setNeighbours] = useState<CountryNeighbour[]>();
+
+  useDocumentTitle('World Ranks - Country Page');
 
   useEffect(() => {
     const fetchData = async () => {
