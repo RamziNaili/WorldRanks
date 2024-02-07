@@ -103,7 +103,7 @@ export const CountryPage = () => {
                   <div
                     key={neighbour.name.common}
                     onClick={() => handleClick(neighbour.name.common)}
-                    className="flex flex-col items-center justify-center h-20 gap-2 cursor-pointer"
+                    className="flex flex-col items-center justify-center h-20 gap-2 cursor-pointer rounded-lg p-2"
                   >
                     <img
                       src={neighbour.flags.png}
