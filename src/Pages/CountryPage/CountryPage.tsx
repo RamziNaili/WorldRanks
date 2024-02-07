@@ -1,34 +1,12 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-
-type CountryInfo = {
-  flags: {
-    png: string;
-  };
-  name: {
-    common: string;
-    official: string;
-  };
-  population: number;
-  area: number;
-  capital: string;
-  subregion: string;
-  languages: {
-    [key: string]: string;
-  };
-  currencies: {
-    [key: string]: {
-      name: string;
-    };
-  };
-  continents: string;
-  borders: string[];
-};
+import { CountryInfo, CountryNeighbour } from './types/countryPage';
 
 export const CountryPage = () => {
   const params = useParams();
   const [data, setData] = useState<CountryInfo>();
+  const [neighbours, setNeighbours] = useState<CountryNeighbour[]>();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -37,6 +15,12 @@ export const CountryPage = () => {
           `https://restcountries.com/v3.1/name/${params.name}?fullText=true&fields=flags,name,population,area,capital,subregion,languages,currencies,continents,borders`
         );
         setData(res.data[0]);
+        const neighbours = await axios.get<CountryNeighbour[]>(
+          `https://restcountries.com/v3.1/alpha?codes=${res.data[0].borders.join(
+            ','
+          )}&fields=flags,name`
+        );
+        setNeighbours(neighbours.data);
       } catch (error) {
         console.error(error);
       }
@@ -64,7 +48,7 @@ export const CountryPage = () => {
               <p className="text-sm">{data.name.official}</p>
             </div>
             <div className="flex justify-center gap-10">
-              <div className="flex items-center justify-center p-5 rounded-lg bg-secondary h-10 text-light w-64">
+              <div className="flex items-center justify-center p-4 rounded-lg bg-secondary h-10 text-light w-64">
                 <p className="bg-secondary border-r border-slate-600 pr-4">
                   population
                 </p>
@@ -72,7 +56,7 @@ export const CountryPage = () => {
                   {data.population.toLocaleString('en-US')}
                 </p>
               </div>
-              <div className="flex items-center justify-center p-5 rounded-lg bg-secondary h-10 text-light w-64">
+              <div className="flex items-center justify-center p-4 rounded-lg bg-secondary h-10 text-light w-64">
                 <p className="bg-secondary border-r border-slate-600 pr-4">
                   Area (km²)
                 </p>
@@ -81,21 +65,21 @@ export const CountryPage = () => {
                 </p>
               </div>
             </div>
-            <div className="w-full flex justify-between border-t border-slate-600 p-5 mt-10">
+            <div className="w-full flex justify-between border-t border-slate-600 p-4 mt-10">
               <p>Capital</p>
               <p className="text-light">{data.capital}</p>
             </div>
-            <div className="w-full flex justify-between border-y border-slate-600 p-5">
+            <div className="w-full flex justify-between border-y border-slate-600 p-4">
               <p>Subregion</p>
               <p className="text-light">{data.subregion}</p>
             </div>
-            <div className="w-full flex justify-between border-b border-slate-600 p-5">
+            <div className="w-full flex justify-between border-b border-slate-600 p-4">
               <p>Languages</p>
               <p className="text-light">
                 {Object.values(data.languages).join(', ')}
               </p>
             </div>
-            <div className="w-full flex justify-between border-b border-slate-600 p-5">
+            <div className="w-full flex justify-between border-b border-slate-600 p-4">
               <p>Currencies</p>
               {Object.values(data.currencies)[0] && (
                 <p className="text-light">
@@ -103,13 +87,29 @@ export const CountryPage = () => {
                 </p>
               )}
             </div>
-            <div className="w-full flex justify-between border-b border-slate-600 p-5">
+            <div className="w-full flex justify-between border-b border-slate-600 p-4">
               <p>Continents</p>
               <p className="text-light">{data.continents}</p>
             </div>
-            <div>
-              <p>Neighbouring Countries</p>
-              <div className="flex"></div>
+            <div className="p-4">
+              <p className="mb-5">Neighbouring Countries</p>
+              <div className="flex gap-4 overflow-x-auto w-full">
+                {neighbours?.map((neighbour) => (
+                  <div
+                    key={neighbour.name.common}
+                    className="flex flex-col items-center justify-center h-20 gap-2"
+                  >
+                    <img
+                      src={neighbour.flags.png}
+                      alt="flag"
+                      className="w-20 h-20 rounded-lg"
+                    />
+                    <p className="text-xs w-20 text-center">
+                      {neighbour.name.common}
+                    </p>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         )}
