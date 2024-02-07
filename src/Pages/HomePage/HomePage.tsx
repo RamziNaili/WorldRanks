@@ -14,7 +14,7 @@ export const HomePage = () => {
         </p>
         <SearchBar />
       </div>
-      <div className="md:grid md:grid-cols-[auto_1fr] mt-2 h-[62vh]">
+      <div className="md:grid md:grid-cols-[auto_1fr] mt-2 h-[62vh] max-md:h-auto">
         <Filter />
         <TableContent />
       </div>
