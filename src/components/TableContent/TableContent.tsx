@@ -51,8 +51,12 @@ export const TableContent: FC = () => {
               {row.getVisibleCells().map((cell) => (
                 <td
                   key={cell.id}
-                  onClick={(e) => handleClick(e)}
-                  className="text-light py-5 px-3 cursor-pointer"
+                  onClick={(e) => {
+                    if (cell.column.id === 'name') handleClick(e);
+                  }}
+                  className={`text-light py-5 px-3 ${
+                    cell.column.id === 'name' ? 'cursor-pointer' : ''
+                  }`}
                 >
                   {flexRender(cell.column.columnDef.cell, cell.getContext())}
                 </td>
