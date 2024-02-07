@@ -1,13 +1,14 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { CountryInfo, CountryNeighbour } from './types/countryPage';
+import { CountryData } from './CountryData';
+import { CountrysNeighbour } from './CountryNeighbour';
 
 export const CountryPage = () => {
   const params = useParams();
   const [data, setData] = useState<CountryInfo>();
   const [neighbours, setNeighbours] = useState<CountryNeighbour[]>();
-  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -16,6 +17,7 @@ export const CountryPage = () => {
           `https://restcountries.com/v3.1/name/${params.name}?fullText=true&fields=flags,name,population,area,capital,subregion,languages,currencies,continents,borders`
         );
         setData(res.data[0]);
+        if (res.data[0].borders.length === 0) return;
         const neighbours = await axios.get<CountryNeighbour[]>(
           `https://restcountries.com/v3.1/alpha?codes=${res.data[0].borders.join(
             ','
@@ -28,10 +30,6 @@ export const CountryPage = () => {
     };
     fetchData();
   }, [params.name]);
-
-  const handleClick = (name: string) => {
-    navigate(`/${name}`);
-  };
 
   return (
     <div className="w-screen relative text-white">
@@ -70,53 +68,8 @@ export const CountryPage = () => {
                 </p>
               </div>
             </div>
-            <div className="w-full flex justify-between border-t border-slate-600 p-4 mt-10">
-              <p>Capital</p>
-              <p className="text-light">{data.capital}</p>
-            </div>
-            <div className="w-full flex justify-between border-y border-slate-600 p-4">
-              <p>Subregion</p>
-              <p className="text-light">{data.subregion}</p>
-            </div>
-            <div className="w-full flex justify-between border-b border-slate-600 p-4">
-              <p>Languages</p>
-              <p className="text-light">
-                {Object.values(data.languages).join(', ')}
-              </p>
-            </div>
-            <div className="w-full flex justify-between border-b border-slate-600 p-4">
-              <p>Currencies</p>
-              {Object.values(data.currencies)[0] && (
-                <p className="text-light">
-                  {Object.values(data.currencies)[0].name}
-                </p>
-              )}
-            </div>
-            <div className="w-full flex justify-between border-b border-slate-600 p-4">
-              <p>Continents</p>
-              <p className="text-light">{data.continents}</p>
-            </div>
-            <div className="p-4">
-              <p className="mb-5">Neighbouring Countries</p>
-              <div className="flex gap-4 overflow-x-auto w-full">
-                {neighbours?.map((neighbour) => (
-                  <div
-                    key={neighbour.name.common}
-                    onClick={() => handleClick(neighbour.name.common)}
-                    className="flex flex-col items-center justify-center h-20 gap-2 cursor-pointer rounded-lg p-2"
-                  >
-                    <img
-                      src={neighbour.flags.png}
-                      alt="flag"
-                      className="w-20 h-20 rounded-lg"
-                    />
-                    <p className="text-xs w-20 text-center">
-                      {neighbour.name.common}
-                    </p>
-                  </div>
-                ))}
-              </div>
-            </div>
+            <CountryData data={data} />
+            <CountrysNeighbour neighbours={neighbours} />
           </div>
         )}
       </div>
