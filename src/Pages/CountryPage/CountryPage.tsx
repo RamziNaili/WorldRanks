@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { CountryInfo, CountryNeighbour } from '../../types/countryPage';
+import { CountryInfo, CountryNeighbour } from '../../types/Countries';
 import { CountryData } from './CountryData';
 import { CountrysNeighbour } from './CountryNeighbour';
 import { CountryDataHeader } from './CountryDataHeader';
