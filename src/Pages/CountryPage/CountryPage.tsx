@@ -34,7 +34,7 @@ export const CountryPage = () => {
     const fetchData = async () => {
       try {
         const res = await axios.get<CountryInfo[]>(
-          `https://restcountries.com/v3.1/name/${params.name}?fields=flags,name,population,area,capital,subregion,languages,currencies,continents,borders`
+          `https://restcountries.com/v3.1/name/${params.name}?fullText=true&fields=flags,name,population,area,capital,subregion,languages,currencies,continents,borders`
         );
         setData(res.data[0]);
       } catch (error) {
@@ -57,7 +57,7 @@ export const CountryPage = () => {
             <img
               src={data.flags.png}
               alt="flag"
-              className="absolute left-1/2 transform -translate-x-1/2 -translate-y-1/2 top-[-95px] h-36 rounded-lg"
+              className="absolute left-1/2 transform -translate-x-1/2 -translate-y-1/2 top-[-95px] h-32 rounded-lg"
             />
             <div className="w-full flex items-center flex-col mt-20 mb-4">
               <p className="text-3xl mb-3">{data.name.common}</p>
@@ -97,13 +97,19 @@ export const CountryPage = () => {
             </div>
             <div className="w-full flex justify-between border-b border-slate-600 p-5">
               <p>Currencies</p>
-              <p className="text-light">
-                {Object.values(data.currencies)[0].name}
-              </p>
+              {Object.values(data.currencies)[0] && (
+                <p className="text-light">
+                  {Object.values(data.currencies)[0].name}
+                </p>
+              )}
             </div>
             <div className="w-full flex justify-between border-b border-slate-600 p-5">
               <p>Continents</p>
               <p className="text-light">{data.continents}</p>
+            </div>
+            <div>
+              <p>Neighbouring Countries</p>
+              <div className="flex"></div>
             </div>
           </div>
         )}
