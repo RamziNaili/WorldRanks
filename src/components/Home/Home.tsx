@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import { HomePage } from '../../Pages/HomePage/HomePage';
-import img from 'src/assets/hero-image.jpg';
+import img from '@/assets/hero-image.jpg';
 
 export const Home: FC = () => {
   return (
