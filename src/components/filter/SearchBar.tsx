@@ -6,7 +6,7 @@ export const SearchBar: FC = () => {
   const setSearch = useSearchBarStore((state) => state.setSearch);
 
   return (
-    <div className="flex items-center bg-secondary h-10 rounded-lg">
+    <div className="flex items-center bg-secondary h-10 rounded-lg w-3/4 lg:w-1/2">
       <Search className="bg-secondary ml-2" />
       <input
         className="w-80 border-none outline-none bg-secondary p-2 rounded-lg"
