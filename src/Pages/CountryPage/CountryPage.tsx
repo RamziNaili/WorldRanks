@@ -42,7 +42,7 @@ export const CountryPage = () => {
         src="src/assets/hero-image.jpg"
         alt="hero"
       />
-      <div className="absolute shadow-xl top-[570px] left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-gray-200 border border-neutral-700 rounded-lg w-[50vw] max-xl:w-[640px] max-sm:w-full">
+      <div className="absolute shadow-xl top-[570px] left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-gray-200 border border-neutral-700 rounded-lg w-[50vw] max-xl:w-[640px] max-md:w-full">
         {data && (
           <div className="h-[70vh] relative rounded-lg">
             <img

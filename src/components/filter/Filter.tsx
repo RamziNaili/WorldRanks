@@ -5,7 +5,8 @@ import { Status } from './Status';
 
 export const Filter: FC = () => {
   return (
-    <div className="md:w-[400px] p-5">
+    // <div className="md:w-[400px] p-5">
+    <div className="p2 md:p-5">
       <SortBy />
       <Regions />
       <Status />

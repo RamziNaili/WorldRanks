@@ -28,7 +28,7 @@ export const TableContent: FC = () => {
 
   return (
     <div className="h-full max-md:h-[345px] overflow-auto w-full">
-      <table className="w-full max-xl:w-[700px]">
+      <table className="w-full">
         <thead className="sticky top-[-1px] w-full">
           {table.getHeaderGroups().map((headerGroup) => (
             <tr key={headerGroup.id}>
@@ -54,8 +54,8 @@ export const TableContent: FC = () => {
                   onClick={(e) => {
                     if (cell.column.id === 'name') handleClick(e);
                   }}
-                  className={`text-light py-5 px-3 ${
-                    cell.column.id === 'name' ? 'cursor-pointer' : ''
+                  className={`text-light py-2 md:py-5 px-2 md:px-3 ${
+                    cell.column.id === 'name' && 'cursor-pointer'
                   }`}
                 >
                   {flexRender(cell.column.columnDef.cell, cell.getContext())}
