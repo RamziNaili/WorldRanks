@@ -10,13 +10,13 @@ export const HomePage = () => {
 
   return (
     <>
-      <div className="flex flex-col lg:flex-row justify-between gap-5 lg:items-center p-5">
+      <div className="flex flex-col lg:flex-row justify-between gap-5 lg:items-center p-2 md:p-5">
         <p className="font-beViet font-semibold text-text ">
           {`Found ${data.length} counties`}
         </p>
         <SearchBar />
       </div>
-      <div className="md:grid md:grid-cols-[auto_1fr] mt-2 h-[62vh] max-md:h-auto">
+      <div className="flex flex-col xl:flex-row mt-2 h-[62vh] max-md:h-auto">
         <Filter />
         <TableContent />
       </div>

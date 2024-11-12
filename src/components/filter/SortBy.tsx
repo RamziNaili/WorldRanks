@@ -8,7 +8,7 @@ export const SortBy: FC = () => {
     <>
       <p className="text-sm text-text font-beViet mb-3">Sort by</p>
       <select
-        className="w-5/6 border border-neutral-500 outline-none rounded-lg px-4 py-3 text-textLight"
+        className="w-5/6 md:w-96 border border-neutral-500 outline-none rounded-lg px-4 py-3 text-textLight"
         onChange={(e) => setSortBy(e.target.value as SortType)}
       >
         <option value={SortType.population}>Population</option>
