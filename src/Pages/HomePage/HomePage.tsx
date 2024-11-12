@@ -10,7 +10,7 @@ export const HomePage = () => {
 
   return (
     <>
-      <div className="flex justify-between items-center p-5">
+      <div className="flex flex-col lg:flex-row justify-between gap-5 lg:items-center p-5">
         <p className="font-beViet font-semibold text-text ">
           {`Found ${data.length} counties`}
         </p>
